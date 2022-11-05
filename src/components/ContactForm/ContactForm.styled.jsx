@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import {Form} from 'formik'
+ 
 
 export const FormList = styled(Form)`
   display: grid;
 
   padding: 8px;
-
-  border: solid 1px black;
 `;
 
 export const Label = styled.label`

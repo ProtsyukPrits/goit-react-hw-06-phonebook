@@ -1,52 +1,33 @@
-// import { useState, useEffect } from 'react';
-import { ContactList } from './ContactList';
-import { ContactForm } from './ContactForm';
-import { ContactContainer } from './App.styled';
-import { Filter } from './Filter';
-// import { nanoid } from 'nanoid';
-// import { getContacts } from 'redux/selectors';
-
-// const LS_KEY = 'phonebook_contacts';
+import { ContactContainer, Header, Navigation } from './App.styled';
+import Contacts from './pages/Contacts';
+import { Link } from './App.styled';
+import { Routes, Route } from 'react-router-dom';
+import Phonebook from './pages/Phonebook';
+import { AiOutlinePhone } from 'react-icons/ai';
+import { BsBook } from 'react-icons/bs';
 
 export const App = () => {
-  // const [filter, setFilter] = useState('');
-
-  // const localStorContacts = localStorage.getItem(LS_KEY);
-  // const parseContacts = JSON.parse(localStorContacts);
-
-  // if (parseContacts) {
-  //   return parseContacts
-  // }
-
-  // localStorage.setItem(LS_KEY, JSON.stringify(getContacts));
-
-  // const addToContact = ({ name, number }) => {
-  //   if (contacts.some(contact => contact.name === name)) {
-  //     return Notiflix.Notify.info(`${contacts.name} is already in contacts!`);
-  //   }
-
-  //   setContacts(prevState => [...prevState, { id: nanoid(), name, number }]);
-  // };
-
-  // const deleteFromContact = id => {
-  //   setContacts(contacts.filter(contact => contact.id !== id));
-  // };
-
-  // const filtring = e => {
-  //   setFilter(e.currentTarget.value.toLowerCase().trim());
-  // };
-
-  // const filtringContacts = contacts.filter(contact =>
-  //   contact.name.toLowerCase().includes(filter)
-  // );
-
   return (
     <ContactContainer>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactList />
+      <Header>
+        <Navigation>
+          <Link to="/">
+            <AiOutlinePhone size="30" />
+            Phonebook
+          </Link>
+
+          <Link to="/contacts">
+            <BsBook size="30" />
+            Contacts
+          </Link>
+        </Navigation>
+      </Header>
+
+      <Routes>
+        <Route path="/" element={<Phonebook />} />
+        <Route path="/contacts" element={<Contacts />} />
+        <Route path="*" element={<Phonebook />} />
+      </Routes>
     </ContactContainer>
   );
 };

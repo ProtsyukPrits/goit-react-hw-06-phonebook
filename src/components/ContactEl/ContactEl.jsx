@@ -1,7 +1,7 @@
 import { PropTypes} from 'prop-types'
 import { Button, ListEl } from './ContactEl.styled';
 
-export const ContactEl = ({ contact, onDelete }) => {
+const ContactEl = ({ contact, onDelete }) => {
   return (
     <ListEl>
       {contact.name} : {contact.number}
@@ -22,3 +22,5 @@ ContactEl.propTypes = {
   contact: PropTypes.objectOf(PropTypes.string).isRequired,
   onDelete: PropTypes.func.isRequired,
 };
+
+export default ContactEl;

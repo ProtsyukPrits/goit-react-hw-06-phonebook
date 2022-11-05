@@ -1,15 +1,14 @@
-import { PropTypes } from 'prop-types';
 import { LabelFilter, InputFilter } from "./Filter.styled";
 // 
 import { useDispatch } from 'react-redux';
 import { filtringContactsUser } from 'redux/filterSlice';
 
-export const Filter = () => {
+const Filter = () => {
 
   const dispatch = useDispatch();
   
   const handleFilter = e => {
-    dispatch(filtringContactsUser(e.target.value));
+    dispatch(filtringContactsUser(e.target.value.toLowerCase().trim()));
   }
   return (
     <LabelFilter>
@@ -19,6 +18,4 @@ export const Filter = () => {
   );
 };
 
-Filter.propTypes = {
-  filtring: PropTypes.func
-}
+export default Filter;

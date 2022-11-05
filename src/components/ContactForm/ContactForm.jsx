@@ -1,10 +1,11 @@
-import { FormList, Label, Input, Button } from './ContactForm.styled';
+import { FormList, Label, Input, Button} from './ContactForm.styled';
 import { Formik, Field, ErrorMessage } from 'formik';
-import { PropTypes } from 'prop-types';
 import * as yup from 'yup';
-// 
-import { useDispatch } from 'react-redux';
+import Notiflix from 'notiflix';
+//
+import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
 
 const initialValues = {
   name: '',
@@ -32,42 +33,44 @@ const schema = yup.object().shape({
     .required(),
 });
 
-export const ContactForm = () => {
-
+const ContactForm = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
   const handleSubmit = (values, { resetForm }) => {
-    const {name, number} = values
-    console.log('value', values);
+    const { name } = values;
+
+    if (contacts.some(contact => contact.name === name)) {
+      return Notiflix.Notify.info(`${name} is already in contacts!`);
+    }
+
     resetForm();
-    dispatch(addContacts(name, number));
+    dispatch(addContacts(values));
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={schema}
-    >
-      <FormList autoComplete="off">
-        <Label htmlFor="name">
-          Name:
-          <Field type="text" name="name" as={Input} />
-          <ErrorMessage name="name" component="div" />
-        </Label>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={schema}
+      >
+        <FormList autoComplete="off">
+          <Label htmlFor="name">
+            Name:
+            <Field type="text" name="name" as={Input} />
+            <ErrorMessage name="name" component="div" />
+          </Label>
 
-        <Label htmlFor="number">
-          Number:
-          <Field type="tel" name="number" as={Input} />
-          <ErrorMessage name="number" component="div" />
-        </Label>
+          <Label htmlFor="number">
+            Number:
+            <Field type="tel" name="number" as={Input} />
+            <ErrorMessage name="number" component="div" />
+          </Label>
 
-        <Button type="submit">Add contacts</Button>
-      </FormList>
-    </Formik>
+          <Button type="submit">Add contacts</Button>
+        </FormList>
+      </Formik>
   );
 };
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func,
-};
+export default ContactForm;
