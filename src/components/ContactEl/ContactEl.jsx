@@ -7,7 +7,9 @@ export const ContactEl = ({ contact, onDelete }) => {
       {contact.name} : {contact.number}
       <Button
         type="button"
-        onClick={onDelete(contact.id)}
+        onClick={() => {
+          onDelete(contact.id);
+        }}
       >
         Delete
       </Button>
@@ -17,6 +19,6 @@ export const ContactEl = ({ contact, onDelete }) => {
 
 
 ContactEl.propTypes = {
-  contact: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  contact: PropTypes.objectOf(PropTypes.string).isRequired,
   onDelete: PropTypes.func.isRequired,
 };

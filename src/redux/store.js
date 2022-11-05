@@ -9,22 +9,23 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import { clickPersistReducer } from './contactsSlice';
+import { contactsReducer } from './contactsSlice';
 import { filtringReducer } from './filterSlice';
 
 export const store = configureStore({
   reducer: {
-    contacts: clickPersistReducer,
+    contacts: contactsReducer,
     filter: filtringReducer,
   },
-  middleware(getDefaultMiddleWare) {
-    return getDefaultMiddleWare({
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
        serializableCheck: {
         ignoredActions: [FLUSH, REGISTER, REHYDRATE, PAUSE, PERSIST, PURGE],
       },
     });
   },
 });
+
 
 export const persistor = persistStore(store);
 

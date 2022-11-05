@@ -9,7 +9,7 @@ export const Filter = () => {
   const dispatch = useDispatch();
   
   const handleFilter = e => {
-    dispatch(filtringContactsUser(e.currentTarget.value.toLowerCase().trim()));
+    dispatch(filtringContactsUser(e.target.value));
   }
   return (
     <LabelFilter>

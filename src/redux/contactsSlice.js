@@ -13,7 +13,7 @@ const contactsInitialState = {
 ]};
 
 const contactsSlice = createSlice({
-  name: 'contacts',
+  name: 'items',
   initialState: contactsInitialState,
   reducers: {
     addContacts: {
@@ -45,11 +45,9 @@ const contactsSlice = createSlice({
 });
 
 const persistConfig = {
-  key: 'root',
+  key: 'items',
   storage,
 };
 
-export const clickPersistReducer = persistReducer(persistConfig, contactsSlice.reducer);
-
-
+export const contactsReducer = persistReducer(persistConfig, contactsSlice.reducer);
 export const { addContacts, deleteFromContact } = contactsSlice.actions;
